@@ -1,0 +1,15 @@
+#dev
+server:
+  port: ${port:8761}
+spring:
+  profiles:
+   active: @profiles.active@
+
+---
+spring:
+  profiles: native
+eureka:
+  environment: ${spring.profiles.active}
+  instance:
+    hostname: localhost
+    prefer-ip-address: true

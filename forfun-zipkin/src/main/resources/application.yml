@@ -1,0 +1,7 @@
+#dev
+server:
+  port: ${port:9411}
+spring:
+  profiles:
+    active: @profiles.active@
+
