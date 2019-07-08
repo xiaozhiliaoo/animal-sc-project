@@ -1,0 +1,210 @@
+version: "2"
+services:
+  animal-eureka:
+    image: animal/animal-eureka
+    ports:
+      - "8761:8761"
+#    logging:
+#      driver: gelf
+#      options:
+#        gelf-address: udp://${DOCKER_HOST_IP}:12201
+    networks:
+      - animal-microservice
+    command: java -Xmx256m -Xms256m -Xmn200M -Xss256k -Djava.security.egd=file:/dev/./urandom -Duser.timezone=GMT+8 -jar /app/animal-eureka.jar
+
+  animal-admin:
+    image: animal/animal-admin
+    ports:
+      - "9090:9090"
+#    logging:
+#      driver: gelf
+#      options:
+#        gelf-address: udp://${DOCKER_HOST_IP}:12201
+    networks:
+      - animal-microservice
+    command: java -Xmx256m -Xms256m -Xmn200M -Xss256k -Djava.security.egd=file:/dev/./urandom -Duser.timezone=GMT+8 -jar /app/animal-admin.jar
+
+  animal-config:
+    image: animal/animal-config
+    ports:
+      - "8888:8888"
+#    logging:
+#      driver: gelf
+#      options:
+#        gelf-address: udp://${DOCKER_HOST_IP}:12201
+    networks:
+      - animal-microservice
+    command: java -Xmx256m -Xms256m -Xmn200M -Xss256k -Djava.security.egd=file:/dev/./urandom -Duser.timezone=GMT+8 -jar /app/animal-config.jar
+
+  animal-zipkin:
+    image: animal/animal-zipkin
+    ports:
+      - "9411:9411"
+#    logging:
+#      driver: gelf
+#      options:
+#        gelf-address: udp://${DOCKER_HOST_IP}:12201
+    networks:
+      - animal-microservice
+    command: java -Xmx256m -Xms256m -Xmn200M -Xss256k -Djava.security.egd=file:/dev/./urandom -Duser.timezone=GMT+8 -jar /app/animal-zipkin.jar
+
+  animal-security:
+    image: animal/animal-security
+    ports:
+      - "8091:8091"
+#    logging:
+#      driver: gelf
+#      options:
+#        gelf-address: udp://${DOCKER_HOST_IP}:12201
+    networks:
+      - animal-microservice
+    entrypoint: ./wait-for-it.sh animal-config:8888 -t 60 --
+    command: java -Xmx256m -Xms256m -Xmn200M -Xss256k -Djava.security.egd=file:/dev/./urandom -Duser.timezone=GMT+8 -jar /app/animal-security.jar
+
+  animal-account:
+    image: animal/animal-account
+    ports:
+      - "8093:8093"
+#    logging:
+#      driver: gelf
+#      options:
+#        gelf-address: udp://${DOCKER_HOST_IP}:12201
+    networks:
+      - animal-microservice
+    entrypoint: ./wait-for-it.sh animal-config:8888 -t 60 --
+    command: java -Xmx256m -Xms256m -Xmn200M -Xss256k -Djava.security.egd=file:/dev/./urandom -Duser.timezone=GMT+8 -jar /app/animal-account.jar
+
+  animal-reporting:
+    image: animal/animal-reporting
+    ports:
+      - "8094:8094"
+#    logging:
+#      driver: gelf
+#      options:
+#        gelf-address: udp://${DOCKER_HOST_IP}:12201
+    networks:
+      - animal-microservice
+    entrypoint: ./wait-for-it.sh animal-config:8888 -t 60 --
+    command: java -Xmx256m -Xms256m -Xmn200M -Xss256k -Djava.security.egd=file:/dev/./urandom -Duser.timezone=GMT+8 -jar /app/animal-reporting.jar
+
+  animal-wechat:
+    image: animal/animal-wechat
+    ports:
+      - "8095:8095"
+#    logging:
+#      driver: gelf
+#      options:
+#        gelf-address: udp://${DOCKER_HOST_IP}:12201
+    networks:
+      - animal-microservice
+    entrypoint: ./wait-for-it.sh animal-config:8888 -t 60 --
+    command: java -Xmx256m -Xms256m -Xmn200M -Xss256k -Djava.security.egd=file:/dev/./urandom -Duser.timezone=GMT+8 -jar /app/animal-wechat.jar
+
+  animal-order:
+    image: animal/animal-order
+    ports:
+      - "8096:8096"
+#    logging:
+#      driver: gelf
+#      options:
+#        gelf-address: udp://${DOCKER_HOST_IP}:12201
+    networks:
+      - animal-microservice
+    entrypoint: ./wait-for-it.sh animal-config:8888 -t 60 --
+    command: java -Xmx256m -Xms256m -Xmn200M -Xss256k -Djava.security.egd=file:/dev/./urandom -Duser.timezone=GMT+8 -jar /app/animal-order.jar
+
+  animal-marketing:
+    image: animal/animal-marketing
+    ports:
+      - "8097:8097"
+#    logging:
+#      driver: gelf
+#      options:
+#        gelf-address: udp://${DOCKER_HOST_IP}:12201
+    networks:
+      - animal-microservice
+    entrypoint: ./wait-for-it.sh animal-config:8888 -t 60 --
+    command: java -Xmx256m -Xms256m -Xmn200M -Xss256k -Djava.security.egd=file:/dev/./urandom -Duser.timezone=GMT+8 -jar /app/animal-marketing.jar
+
+  animal-finance:
+    image: animal/animal-finance
+    ports:
+      - "8098:8098"
+#    logging:
+#      driver: gelf
+#      options:
+#        gelf-address: udp://${DOCKER_HOST_IP}:12201
+    networks:
+      - animal-microservice
+    entrypoint: ./wait-for-it.sh animal-config:8888 -t 60 --
+    command: java -Xmx256m -Xms256m -Xmn200M -Xss256k -Djava.security.egd=file:/dev/./urandom -Duser.timezone=GMT+8 -jar /app/animal-finance.jar
+
+  animal-member:
+    image: animal/animal-member
+    ports:
+      - "8099:8099"
+#    logging:
+#      driver: gelf
+#      options:
+#        gelf-address: udp://${DOCKER_HOST_IP}:12201
+    networks:
+      - animal-microservice
+    entrypoint: ./wait-for-it.sh animal-config:8888 -t 60 --
+    command: java -Xmx256m -Xms256m -Xmn200M -Xss256k -Djava.security.egd=file:/dev/./urandom -Duser.timezone=GMT+8 -jar /app/animal-member.jar
+
+  animal-youzan:
+    image: animal/animal-youzan
+    ports:
+      - "8100:8100"
+#    logging:
+#      driver: gelf
+#      options:
+#        gelf-address: udp://${DOCKER_HOST_IP}:12201
+    networks:
+      - animal-microservice
+    entrypoint: ./wait-for-it.sh animal-config:8888 -t 60 --
+    command: java -Xmx256m -Xms256m -Xmn200M -Xss256k -Djava.security.egd=file:/dev/./urandom -Duser.timezone=GMT+8 -jar /app/animal-youzan.jar
+
+  animal-task:
+    image: animal/animal-task
+    ports:
+      - "8101:8101"
+#    logging:
+#      driver: gelf
+#      options:
+#        gelf-address: udp://${DOCKER_HOST_IP}:12201
+    networks:
+      - animal-microservice
+    entrypoint: ./wait-for-it.sh animal-config:8888 -t 60 --
+    command: java -Xmx256m -Xms256m -Xmn200M -Xss256k -Djava.security.egd=file:/dev/./urandom -Duser.timezone=GMT+8 -jar /app/animal-task.jar
+
+  animal-distributor:
+    image: animal/animal-distributor
+    ports:
+      - "8102:8102"
+#    logging:
+#      driver: gelf
+#      options:
+#        gelf-address: udp://${DOCKER_HOST_IP}:12201
+    networks:
+      - animal-microservice
+    entrypoint: ./wait-for-it.sh animal-config:8888 -t 60 --
+    command: java -Xmx256m -Xms256m -Xmn200M -Xss256k -Djava.security.egd=file:/dev/./urandom -Duser.timezone=GMT+8 -jar /app/animal-distributor.jar
+
+  animal-ui:
+    image: animal/animal-ui
+    ports:
+      - "9999:9999"
+#    logging:
+#      driver: gelf
+#      options:
+#        gelf-address: udp://${DOCKER_HOST_IP}:12201
+    networks:
+      - animal-microservice
+    entrypoint: ./wait-for-it.sh animal-config:8888 -t 60 --
+    command: java -Xmx256m -Xms256m -Xmn200M -Xss256k -Djava.security.egd=file:/dev/./urandom -Duser.timezone=GMT+8 -jar /app/animal-ui.jar
+
+
+networks:
+  animal-microservice:
+    driver: bridge

@@ -5,22 +5,21 @@
     <modelVersion>4.0.0</modelVersion>
 
     <groupId>org.for.fun</groupId>
-    <artifactId>sc-project</artifactId>
+    <artifactId>animal-sc-project</artifactId>
     <version>1.0-SNAPSHOT</version>
     <packaging>pom</packaging>
 
     <modules>
-        <module>forfun-config</module>
-        <module>forfun-eureka</module>
-        <module>forfun-zipkin</module>
-        <module>forfun-admin</module>
-        <module>forfun-member</module>
-        <module>forfun-marketing</module>
-        <module>forfun-marketing</module>
-
+        <module>animal-config</module>
+        <module>animal-eureka</module>
+        <module>animal-zipkin</module>
+        <module>animal-admin</module>
+        <module>animal-common</module>
+        <module>animal-member</module>
+        <module>animal-marketing</module>
     </modules>
 
-    <name>sc-project</name>
+    <name>animal-sc-project</name>
     <url>http://maven.apache.org</url>
     <properties>
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
@@ -29,6 +28,7 @@
         <spring-cloud.version>Brixton.SR4</spring-cloud.version>
         <maven.compiler.source>1.8</maven.compiler.source>
         <maven.compiler.target>1.8</maven.compiler.target>
+        <reactor-core.version>3.0.3.RELEASE</reactor-core.version>
         <docker.plugin.version>0.4.1</docker.plugin.version>
     </properties>
 

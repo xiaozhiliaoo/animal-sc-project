@@ -1,0 +1,49 @@
+version: '2'
+
+services:
+  elasticsearch:
+    build: elasticsearch/
+    image: animal-elasticsearch
+    ports:
+      - "9200:9200"
+      - "9300:9300"
+    environment:
+      ES_JAVA_OPTS: "-Xms1g -Xmx1g"
+  logstash:
+    build: logstash/
+    image: animal-logstash
+    command: -f /etc/logstash/conf.d/
+    volumes:
+      - ./logstash/config:/etc/logstash/conf.d
+    ports:
+      - "12201:12201"
+      - "12201:12201/udp"
+      - "5000:5000"
+      - "5000:5000/udp"
+  kibana:
+    build: kibana/
+    image: animal-kibana
+    volumes:
+      - ./kibana/config/:/opt/kibana/config/
+    ports:
+      - "5601:5601"
+    entrypoint: /tmp/wait-for-it.sh elasticsearch:9200 -t 60 --
+    command: kibana
+  redis:
+    build: redis/
+    image: animal-redis
+    ports:
+      - "6380:6379"
+#  activemq:
+#    build: activemq/
+#    image: animal-activemq
+#    ports:
+#      - "9161:8161"
+#      - "44444:61616"
+  rabbitmq:
+    build: rabbitmq/
+    image: animal-rabbitmq
+    env_file: ./rabbitmq/config/secret
+    ports:
+      - "15672:15672"
+      - "5672:5672"
