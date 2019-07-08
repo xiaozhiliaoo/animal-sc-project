@@ -1,6 +1,6 @@
 spring:
   application:
-    name: forfun-eureka
+    name: animal-eureka
 eureka:
   client:
     register-with-eureka: false

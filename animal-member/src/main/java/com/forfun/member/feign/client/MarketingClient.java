@@ -8,7 +8,7 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 
 
-@FeignClient(name = "forfun-marketing", fallback = MarketingHystrixFallback.class)
+@FeignClient(name = "animal-marketing", fallback = MarketingHystrixFallback.class)
 public interface MarketingClient {
 
     @RequestMapping(value = "/points", method = RequestMethod.GET)

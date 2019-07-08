@@ -4,7 +4,7 @@
          xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
     <modelVersion>4.0.0</modelVersion>
 
-    <groupId>org.for.fun</groupId>
+    <groupId>org.lili.forfun</groupId>
     <artifactId>animal-sc-project</artifactId>
     <version>1.0-SNAPSHOT</version>
     <packaging>pom</packaging>
@@ -17,11 +17,14 @@
         <module>animal-common</module>
         <module>animal-member</module>
         <module>animal-marketing</module>
+        <module>animal-ui</module>
+        <module>animal-facade</module>
     </modules>
 
     <name>animal-sc-project</name>
     <url>http://maven.apache.org</url>
     <properties>
+        <oss.version>2.2.3</oss.version>
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
         <spring-boot-admin.version>1.3.7</spring-boot-admin.version>
         <spring-boot.version>1.4.0.RELEASE</spring-boot.version>
@@ -128,6 +131,21 @@
                 <groupId>io.springfox</groupId>
                 <artifactId>springfox-swagger-ui</artifactId>
                 <version>2.6.1</version>
+            </dependency>
+            <dependency>
+                <groupId>com.aliyun.oss</groupId>
+                <artifactId>aliyun-sdk-oss</artifactId>
+                <version>${oss.version}</version>
+            </dependency>
+            <dependency>
+                <groupId>org.lili.forfun</groupId>
+                <artifactId>animal-common</artifactId>
+                <version>${project.parent.version}</version>
+            </dependency>
+            <dependency>
+                <groupId>org.lili.forfun</groupId>
+                <artifactId>animal-facade</artifactId>
+                <version>${project.parent.version}</version>
             </dependency>
         </dependencies>
     </dependencyManagement>

@@ -2,7 +2,7 @@ spring:
   profiles:
     active: @profiles.active@
   application:
-    name: forfun-marketing
+    name: animal-marketing
 endpoints:
   health:
     time-to-live: 600000
